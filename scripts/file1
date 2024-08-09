@@ -5,3 +5,10 @@ echo
 mpstat
 #iostat,top
 echo
+echo "memory usage"
+free -h
+echo
+echo "disk usage"
+echo
+df -h
+echo
