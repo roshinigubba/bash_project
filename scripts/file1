@@ -16,3 +16,7 @@ echo "network interface status and their throughput"
 ifconfig
 #ip -s link
 echo
+echo " running process"
+ps aux# a= all, u=usr,x=catalog, like descriptive.
+# ps aux | awk '$8=="R"{print$0}'
+echo
