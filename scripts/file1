@@ -20,3 +20,6 @@ echo " running process"
 ps aux# a= all, u=usr,x=catalog, like descriptive.
 # ps aux | awk '$8=="R"{print$0}'
 echo
+echo "system uptime"
+uptime
+echo
