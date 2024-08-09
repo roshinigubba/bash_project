@@ -17,12 +17,12 @@ ifconfig
 #ip -s link
 echo
 echo " running process"
-ps aux# a= all, u=usr,x=catalog, like descriptive.
+ps aux
 # ps aux | awk '$8=="R"{print$0}'
 echo
 echo "system uptime"
 uptime
 echo
 echo "critical errors in system logs"
-journalctl -p 3  -xb, # p-priority, 3 refers to critical error, x=catalog, b=also booting- -processes
+journalctl -p 3  -xb
 echo
