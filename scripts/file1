@@ -12,3 +12,7 @@ echo "disk usage"
 echo
 df -h
 echo
+echo "network interface status and their throughput"
+ifconfig
+#ip -s link
+echo
