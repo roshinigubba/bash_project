@@ -1,0 +1,7 @@
+#!/bin/bash
+echo
+echo "cpu health check:"
+echo
+mpstat
+#iostat,top
+echo
