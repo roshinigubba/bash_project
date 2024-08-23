@@ -3,7 +3,7 @@
 # Start a new tmux session named "system_info"
 tmux new-session -d -s system_information
 
-# Split the window into three panes
+# Split the window into multiple panes
 tmux split-window -h
 tmux split-window -h  # Split window horizontally
 tmux split-window -v
@@ -25,7 +25,10 @@ tmux send-keys "df -h" C-m
 tmux select-pane -t 3
 tmux send-keys "ifconfig" C-m
 
+# Run uptime info in fifth pane
+tmux select-pane -t 4
+tmux send-keys "uptime" C-m
 
 # Attach to the tmux session
-tmux attach-session -t system_info
+tmux attach-session -t system_information
 
