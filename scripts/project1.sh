@@ -15,7 +15,12 @@ tmux split-window -h   # Split the second vertical pane into 2 vertical panes
 
 # Arrange panes
 tmux select-pane -t 2
-tmux split-window -v 
+tmux split-window -v
+
+# Arrange panes
+tmux select-pane -t 3
+tmux split-window -h
+
 
 # Set up the layout
 tmux select-layout tiled
@@ -37,7 +42,7 @@ tmux select-pane -t 4
 tmux send-keys "uptime" C-m  # Uptime
 
 tmux select-pane -t 5
-tmux send-keys "grep -i error /var/log/syslog" C-m  # Critical errors in system logs
+tmux send-keys ""journalctl -p 3 -xb"" C-m  # Critical errors in system logs
 
 tmux select-pane -t 6
 tmux send-keys "ip a" C-m  # Network interface status
