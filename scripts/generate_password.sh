@@ -12,7 +12,7 @@ generate_password() {
     random_numbers=$(head /dev/urandom | tr -dc "$numbers" | fold -w 2 | head -n 1)
     random_special_chars=$(head /dev/urandom | tr -dc "$special_chars" | fold -w 2 | head -n 1)
 
-    # Debug: Print the generated parts
+    # Print the generated parts
     #echo "Alphabets: $random_alphabets"
     #echo "Numbers: $random_numbers"
     #echo "Special characters: $random_special_chars"
