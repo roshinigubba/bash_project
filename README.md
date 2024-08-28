@@ -162,6 +162,7 @@ To modify the pane layout or commands, edit the start_monitoring.sh script:
 
 Issue: tmux or other commands not found.
 - Solution: Ensure all dependencies are installed.
+
 Issue: Information not updating.
 - Solution: Verify commands and utilities outside of tmux.
 
