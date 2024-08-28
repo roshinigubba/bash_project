@@ -144,13 +144,13 @@ tmux attach-session -t system_monitors
  Execute the start_monitoring.sh script to set up the tmux session:
 ./project1.sh
 2. View Panes:
-Pane 0: CPU health check (mpstat)
-Pane 1: Disk usage (df -h)
-Pane 2: Memory usage (free -h)
-Pane 3: Running processes (ps aux)
-Pane 4: System uptime (uptime)
-Pane 5: Critical errors in system logs (journalctl -p 3 -xb)
-Pane 6: Network interface status (ip a)
+- Pane 0: CPU health check (mpstat)
+- Pane 1: Disk usage (df -h)
+- Pane 2: Memory usage (free -h)
+- Pane 3: Running processes (ps aux)
+- Pane 4: System uptime (uptime)
+- Pane 5: Critical errors in system logs (journalctl -p 3 -xb)
+- Pane 6: Network interface status (ip a)
 
 ## Customization
 
