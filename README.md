@@ -11,7 +11,7 @@ Configuring the screen into multiple sections, with each section displaying dist
     - Network interface status
     - Disk usage
 
-    This tool helps you manage multiple system information displays in separate panes on your screen. Ideal for monitoring various system metrics and logs simultaneously.
+This tool helps you manage multiple system information displays in separate panes on your screen. Ideal for monitoring various system metrics and logs simultaneously.
 
 ## Overview
 
