@@ -3,13 +3,13 @@
 ## System information:
 
 Configuring the screen into multiple sections, with each section displaying distinct information. Specifically,
-    - CPU health checks
-    - Running processes
-    - System uptime
-    - Critical errors from system logs
-    - Memory usage
-    - Network interface status
-    - Disk usage
+- CPU health checks
+- Running processes
+- System uptime
+- Critical errors from system logs
+- Memory usage
+- Network interface status
+- Disk usage
 
 This tool helps you manage multiple system information displays in separate panes on your screen. Ideal for monitoring various system metrics and logs simultaneously.
 
