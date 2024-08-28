@@ -19,11 +19,11 @@ This project provides a way to split your screen into different panes and displa
 
 ## Requirements
 
--Operating System: Linux-based systems are recommended.
--Dependencies:
--tmux for terminal multiplexing
--df for disk space information
--bash or zsh for scripting
+- Operating System: Linux-based systems are recommended.
+- Dependencies:
+    - tmux for terminal multiplexing
+    - df for disk space information
+    - bash or zsh for scripting
 
 ## Recommended Modules and Tools
 
