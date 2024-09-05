@@ -1,19 +1,21 @@
 #!/bin/bash
+# Define variables
+REMOTE_HOST="192.168.127.24"   # Replace with your remote server address
+REMOTE_USER="roshinigubba"  # Replace with your remote server username
+COMMAND1="cat /etc/passwd"  # Replace with the first command to run as root
+COMMAND2="date"         # Replace with the second command to run as root
 
-# Define your server details
-SERVER_USER="your_username"
-SERVER_HOST="your_ipaddress"
-SSH_PORT="22"
+# Prompt for SSH password
+echo -n "Enter SSH password for $REMOTE_USER@$REMOTE_HOST: "
+read -s SSH_PASSWORD
+echo
 
-
-# SSH into the server, switch to root, run commands, and save and display the output
- ssh -p "$SSH_PORT" "$SERVER_USER@$SERVER_HOST"<<EOF
-        # Switch to root and run the commands
-        sudo -i bash << ROOT_SHELL
-        # Display /etc/passwd
-        cat /etc/passwd
-        # Display the current date
-        date
-ROOT_SHELL
+# Connect to the remote server and execute commands as root
+ssh -T "$REMOTE_USER@$REMOTE_HOST" << EOF
+    echo "$SSH_PASSWORD" | sudo -S bash -c "
+    $COMMAND1
+    $COMMAND2
+    "
 EOF
+
 
