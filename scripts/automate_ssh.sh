@@ -1,7 +1,7 @@
 #!/bin/bash
 # Define variables
-REMOTE_HOST="192.168.127.24"   # Replace with your remote server address
-REMOTE_USER="roshinigubba"  # Replace with your remote server username
+REMOTE_HOST="your_server_address"   # Replace with your remote server address
+REMOTE_USER="your_username"  # Replace with your remote server username
 COMMAND1="cat /etc/passwd"  # Replace with the first command to run as root
 COMMAND2="date"         # Replace with the second command to run as root
 
