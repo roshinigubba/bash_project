@@ -1,21 +1,12 @@
 #!/bin/bash
-# Define variables
-REMOTE_HOST="your_server_address"   # Replace with your remote server address
-REMOTE_USER="your_username"  # Replace with your remote server username
-COMMAND1="cat /etc/passwd"  # Replace with the first command to run as root
-COMMAND2="date"         # Replace with the second command to run as root
 
-# Prompt for SSH password
-echo -n "Enter SSH password for $REMOTE_USER@$REMOTE_HOST: "
-read -s SSH_PASSWORD
-echo
-
-# Connect to the remote server and execute commands as root
-ssh -T "$REMOTE_USER@$REMOTE_HOST" << EOF
-    echo "$SSH_PASSWORD" | sudo -S bash -c "
-    $COMMAND1
-    $COMMAND2
-    "
+ssh -i "/path/to/aws_ec2_linux_2.pem" ec2-user@ec2-13-238-120-200.ap-southeast-2.compute.amazonaws.com<<EOF
+sudo -s bash  <<ROOT_SHELL
+cat /etc/passwd
+date
+ROOT_SHELL
 EOF
+
+
 
 
