@@ -1,10 +1,28 @@
 #!/bin/bash
 
-ssh -i "/path/to/aws_ec2_linux_2.pem" ec2-user@ec2-13-238-120-200.ap-southeast-2.compute.amazonaws.com<<EOF
-sudo -s bash  <<ROOT_SHELL
+echo "####################connecting to remote server###############################"
+
+PUBLIC_DNS="your_public_dns"
+SERVER_USERNAME="your_username"
+
+ssh -i "/path/to/Key_file" $SERVER_USERNAME@$PUBLIC_DNS<<EOF
+
+echo "###################################################"
+
+echo " switching into root"
+
+echo " ####################################################"
+
+sudo -i
+
+echo "**********************************listing password file content********************************"
+
 cat /etc/passwd
+
+echo "**************************displaying the date************************************"
+
 date
-ROOT_SHELL
+
 EOF
 
 
