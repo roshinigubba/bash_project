@@ -1,30 +1,98 @@
-#!/bin/bash
+#!/bin/bash/
 
-echo "####################connecting to remote server###############################"
+echo -e "###########connecting to linux_server_2################\n"
 
-PUBLIC_DNS="your_public_dns"
-SERVER_USERNAME="your_username"
+ssh -i "ec2_linux.pem" ec2-user@13.211.219.173<<EOF
 
-ssh -i "/path/to/Key_file" $SERVER_USERNAME@$PUBLIC_DNS<<EOF
+echo -e "\n"
 
-echo "###################################################"
-
-echo " switching into root"
-
-echo " ####################################################"
+echo -e "#################switching to root#####################\n"
 
 sudo -i
 
-echo "**********************************listing password file content********************************"
+echo -e "####################listing the password file content#####################\n"
 
 cat /etc/passwd
 
-echo "**************************displaying the date************************************"
+echo -e "\n"
+
+echo -e "###########################displaying the date#########################\n"
 
 date
 
+echo -e "\n"
+
+echo -e "##########################displaying the hostname#######################\n"
+
+hostname
+
 EOF
 
+echo -e "\n"
+
+echo -e "#########connecting to linux_server_3##################\n"
+
+ssh -i "ec2_linux_4.pem" ec2-user@54.153.131.173<<EOF
+
+echo -e "\n"
+
+echo -e "#################switching to root#####################\n"
+
+sudo -i
+
+#echo -e "\n"
+
+echo -e "####################listing the password file content#####################\n"
+
+cat /etc/passwd
+
+echo -e "\n"
+
+echo -e "###########################displaying the date#########################\n"
+
+date
+
+echo -e "\n"
+
+echo -e "##########################displaying the hostname#######################\n"
+
+hostname
+uname -n
+
+EOF
+
+echo -e "\n"
+
+echo -e "##############connecting to linux_server_4######################\n"
+
+ssh -i "ec2_linux_5.pem" ec2-user@3.25.77.22<<EOF
+
+#echo -e "\n"
+
+echo -e "#################switching to root#####################\n"
+
+sudo -i
+
+echo -e "\n"
+
+echo -e "####################listing the password file content#####################\n"
+
+cat /etc/passwd
+
+echo -e "\n"
+
+echo -e "###########################displaying the date#########################\n"
+
+date
+
+echo -e "\n"
+
+echo -e "##########################displaying the hostname#######################\n"
+
+hostname
+
+
+EOF
 
 
 
