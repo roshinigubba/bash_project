@@ -166,6 +166,78 @@ Issue: tmux or other commands not found.
 Issue: Information not updating.
 - Solution: Verify commands and utilities outside of tmux.
 
+# Multi-Server Access Script
+
+## Description
+
+This bash script automates the process of connecting to multiple EC2 instances, executing a series of commands on each server, and logging the output. It demonstrates how to use SSH to connect to remote servers and execute commands without manual intervention.
+
+## Features
+
+- Connects to three different EC2 instances
+- Switches to root user on each server
+- Executes common Linux commands (cat /etc/passwd, date, hostname)
+- Logs the output of each server to separate files
+
+## Prerequisites
+
+- Bash shell
+- SSH client
+- Access to the EC2 instances specified in the script
+- Corresponding .pem key files for each EC2 instance
+
+## Usage
+
+1. Ensure you have the necessary .pem files in the same directory as the script:
+   - ec2_linux.pem
+   - ec2_linux_4.pem
+   - ec2_linux_5.pem
+
+2. Make the script executable:
+
+   chmod +x script_name.sh
+
+
+3. Run the script:
+   
+   ./script_name.sh
+   
+
+## Output
+
+The script generates three output files:
+- ip 172 31 8 163: Contains output from the first server (13.211.219.173)
+- ip_54_153_131_173: Contains output from the second server (54.153.131.173)
+- ip_3_25_77_22: Contains output from the third server (3.25.77.22)
+
+Each file contains the following information for its respective server:
+- Contents of /etc/passwd file
+- Current date and time
+- Hostname
+
+## Security Considerations
+
+- This script uses sudo to gain root access. Ensure this aligns with your security policies.
+- .pem files should be kept secure and not shared.
+- Consider using SSH key forwarding instead of copying .pem files to intermediate servers.
+
+## Customization
+
+You can modify the script to:
+- Add or remove servers
+- Change the commands executed on each server
+- Alter the output file names or format
+
+## Troubleshooting
+
+If you encounter issues:
+- Verify that the EC2 instances are running and accessible
+- Check that the .pem files have the correct permissions (typically 400)
+- Ensure your IP is allowed in the security groups of the EC2 instances
+
+## Disclaimer
+
+This script is provided as-is. Always test scripts in a safe environment before using them in production.
 
 
 
