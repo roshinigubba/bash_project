@@ -191,16 +191,22 @@ This bash script automates the process of connecting to multiple EC2 instances, 
 #!/bin/bash/
 
 PUBLIC_DNS_1="your_public_dns"  # Enter your 1st server public ipaddress
+
 SERVER_USERNAME_1="your_username" #Enter your 1st server username
+
 KEY_FILE_1="/path/to/key_file_1" #Enter the path to your pem file of 1st server
 
 PUBLIC_DNS_2="your_public_dns"  # Enter your 2nd server public ipaddress
+
 SERVER_USERNAME_2="your_username" #Enter your 2nd server username
+
 KEY_FILE_2="/path/to/key_file_2" #Enter the path to your pem file of 2nd server
 
 
 PUBLIC_DNS_3="your_public_dns"  # Enter your 3rd server public ipaddress
+
 SERVER_USERNAME_3="your_username" #Enter your 3rd server username
+
 KEY_FILE_3="/path/to/key_file_3" #Enter the path to your pem file of 3rd server
 
 
