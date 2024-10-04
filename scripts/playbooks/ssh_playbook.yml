@@ -1,0 +1,48 @@
+---
+- name: Gather information from multiple servers
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    servers:
+      - name: server1
+        public_dns: "54.152.152.58"
+        username: "ec2-user"
+        key_file: "/home/ec2-user/ec2_key.pem"
+      - name: server2
+        public_dns: "100.24.48.131"
+        username: "ec2-user"
+        key_file: "/home/ec2-user/ec2_key_2.pem"
+      # - name: server3
+      #   public_dns: "your_public_dns_3"
+      #   username: "your_username_3"
+      #   key_file: "/path/to/key_file_3"
+
+  tasks:
+    - name: Ensure output directory exists
+      file:
+        path: "./server_info"
+        state: directory
+
+    - name: Gather information from each server by connecting
+      shell: >  # Use 'shell' for multi-line command execution
+        ssh -i "{{ item.key_file }}" {{ item.username }}@{{ item.public_dns }} << 'EOF'
+        echo '############### Connecting to {{ item.name }} ###############'
+        echo '#################switching to root#####################'
+        sudo -i
+        echo '####################listing the password file content#####################'
+        cat /etc/passwd
+        echo '###########################displaying the date#########################'
+        date
+        echo '##########################displaying the hostname#######################'
+        hostname
+        EOF
+      loop: "{{ servers }}"
+      register: server_output
+
+    - name: Save output to file
+      copy:
+        content: "{{ item.stdout }}"
+        dest: "./server_info/{{ item.item.public_dns }}.txt"
+      loop: "{{ server_output.results }}"
+
