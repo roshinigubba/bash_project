@@ -1,18 +1,7 @@
 ---
-- name: Gather information from servers
-  hosts: localhost
+- name: Gather information from multiple servers
+  hosts: servers  # Reference the group defined in your inventory
   gather_facts: no
-
-  vars:
-    servers:
-      - name: server1
-        public_dns: "54.152.152.58"
-        username: "ec2-user"
-        key_file: "/home/ec2-user/ec2_key.pem"
-      - name: server2
-        public_dns: "100.24.48.131"
-        username: "ec2-user"
-        key_file: "/home/ec2-user/ec2_key_2.pem"
 
   tasks:
     - name: Ensure output directory exists
@@ -22,18 +11,27 @@
 
     - name: Gather information from each server by connecting
       shell: >
-        ssh -i "{{ item.key_file }}" {{ item.username }}@{{ item.public_dns }} << 'EOF'
-        echo '############### Connecting to {{ item.name }} ###############'
+        ssh -i "{{ ansible_ssh_private_key_file }}" {{ ansible_user }}@{{ ansible_host }} << 'EOF'
+        echo '############### Connecting to {{ inventory_hostname }} ###############'
+        echo '################# switching to root #####################'
+        sudo -i bash << 'SUDO_EOF'
+        echo '#################### listing the password file content #####################'
+        cat /etc/passwd
+        echo '########################### displaying the date #########################'
         date
+        echo '########################## displaying the hostname #######################'
         hostname
+        SUDO_EOF
         EOF
-      loop: "{{ servers }}"
       register: server_output
+
+    - name: Debug server output
+      debug:
+        var: server_output
 
     - name: Save output to file
       copy:
-        content: "{{ item.stdout }}"
-        dest: "./server_info/{{ item.item.name }}.txt"
-      loop: "{{ server_output.results }}"
-      when: item.stdout is defined
+        content: "{{ server_output.stdout }}"
+        dest: "./server_info/{{ inventory_hostname }}.txt"
+      when: server_output.stdout is defined
 
