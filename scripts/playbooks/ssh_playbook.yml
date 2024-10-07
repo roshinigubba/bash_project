@@ -1,7 +1,8 @@
 ---
-- name: Gather information from multiple servers
+- name: Gather information from servers
   hosts: localhost
   gather_facts: no
+
   vars:
     servers:
       - name: server1
@@ -12,10 +13,7 @@
         public_dns: "100.24.48.131"
         username: "ec2-user"
         key_file: "/home/ec2-user/ec2_key_2.pem"
-      # - name: server3
-      #   public_dns: "your_public_dns_3"
-      #   username: "your_username_3"
-      #   key_file: "/path/to/key_file_3"
+
   tasks:
     - name: Ensure output directory exists
       file:
@@ -26,33 +24,16 @@
       shell: >
         ssh -i "{{ item.key_file }}" {{ item.username }}@{{ item.public_dns }} << 'EOF'
         echo '############### Connecting to {{ item.name }} ###############'
-        echo '#################switching to root#####################'
-        sudo -i
-        echo '####################listing the password file content#####################'
-        cat /etc/passwd
-        echo '###########################displaying the date#########################'
         date
-        echo '##########################displaying the hostname#######################'
         hostname
         EOF
       loop: "{{ servers }}"
       register: server_output
 
-    - name: Debug server output
-      debug:
-        var: server_output
-
     - name: Save output to file
       copy:
         content: "{{ item.stdout }}"
-        dest: "./server_info/{{ item.item.public_dns }}.txt"
+        dest: "./server_info/{{ item.item.name }}.txt"
       loop: "{{ server_output.results }}"
-
-    - name: List content of server_info directory
-      shell: ls -l ./server_info
-      register: dir_content
-
-    - name: Display directory content
-      debug:
-        var: dir_content.stdout_lines
+      when: item.stdout is defined
 
