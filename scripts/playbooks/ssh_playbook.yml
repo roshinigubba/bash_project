@@ -29,7 +29,7 @@
         ssh -i "{{ item.key_file }}" {{ item.username }}@{{ item.public_dns }} << 'EOF'
         echo '############### Connecting to {{ item.name }} ###############'
         echo '#################switching to root#####################'
-        sudo -i
+        sudo_EOF
         echo '####################listing the password file content#####################'
         cat /etc/passwd
         echo '###########################displaying the date#########################'
@@ -37,12 +37,14 @@
         echo '##########################displaying the hostname#######################'
         hostname
         EOF
-      loop: "{{ servers }}"
+      loop: "{{ item.servers }}"
       register: server_output
+      loop: "{{servers}}"
 
     - name: Save output to file
       copy:
         content: "{{ item.stdout }}"
         dest: "./server_info/{{ item.item.public_dns }}.txt"
       loop: "{{ server_output.results }}"
+      when: item.stdout is defined
 
