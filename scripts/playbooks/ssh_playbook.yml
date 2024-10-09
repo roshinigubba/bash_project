@@ -1,37 +1,62 @@
 ---
-- name: Gather information from multiple servers
-  hosts: servers  # Reference the group defined in your inventory
+- name: Ping and gather info from remote servers
+  hosts: servers
   gather_facts: no
-
   tasks:
     - name: Ensure output directory exists
       file:
-        path: "./server_info"
+        path: "./server_info1"
         state: directory
+      delegate_to: localhost
+      run_once: true
 
-    - name: Gather information from each server by connecting
-      shell: >
-        ssh -i "{{ ansible_ssh_private_key_file }}" {{ ansible_user }}@{{ ansible_host }} << 'EOF'
-        echo '############### Connecting to {{ inventory_hostname }} ###############'
-        echo '################# switching to root #####################'
-        sudo -i bash << 'SUDO_EOF'
-        echo '#################### listing the password file content #####################'
-        cat /etc/passwd
-        echo '########################### displaying the date #########################'
-        date
-        echo '########################## displaying the hostname #######################'
-        hostname
-        SUDO_EOF
-        EOF
-      register: server_output
+    - name: Get hostname
+      command: hostname
+      register: hostname_output
 
-    - name: Debug server output
+    - name: Get current date
+      command: date
+      register: date_output
+
+    - name: Ping the server
+      ping:
+      register: ping_output
+
+    - name: Get password file contents
+      command: cat /etc/passwd
+      register: pass_output
+
+    - name: Debug hostname_output
       debug:
-        var: server_output
+        var: hostname_output
 
-    - name: Save output to file
+    - name: Debug date_output
+      debug:
+        var: date_output
+
+    - name: Debug ping_output
+      debug:
+        var: ping_output
+
+    - name: Debug pass_output
+      debug:
+        var: pass_output
+
+    - name: Prepare output content
+      set_fact:
+        output_content: |
+          Hostname: {{ hostname_output.stdout if hostname_output.stdout is defined else 'N/A' }}
+          Date: {{ date_output.stdout if date_output.stdout is defined else 'N/A' }}
+          Ping: {{ ping_output }}
+          Password file: {{ pass_output.stdout if pass_output.stdout is defined else 'N/A' }}
+
+    - name: Display the outputs
+      debug:
+        msg: "{{ output_content.split('\n') }}"
+
+    - name: Save the output to local files
       copy:
-        content: "{{ server_output.stdout }}"
-        dest: "./server_info/{{ inventory_hostname }}.txt"
-      when: server_output.stdout is defined
+        content: "{{ output_content }}"
+        dest: "./server_info1/{{ ansible_host }}.txt"
+      delegate_to: localhost
 
