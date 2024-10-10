@@ -2,6 +2,7 @@
 - name: Ping and gather info from remote servers
   hosts: servers
   gather_facts: no
+  become: yes
   tasks:
     - name: Ensure output directory exists
       file:
